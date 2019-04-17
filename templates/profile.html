@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Profile {% endblock %}
+
+{% block content %}
+<br>
+<h1> {{ first_name }}  {{ last_name }}</h1>
+<div>
+<img src= "{{ image_url }}" height="220" width="220" class="mt-2">
+</div>
+<br>
+
+
+<div class="btn-group" role="group">
+<form class="form-inline edit-page m-1" action="/users/{{ id }}/edit">
+        <button type="submit" class="btn btn-primary">Edit User</button>
+</form>
+<form class="form-inline delete-page m-1" action="/users/{{ id }}/delete" method="POST">
+    <button type="submit" class="btn btn-danger">Delete User</button>
+</form>
+</div>
+{% endblock %}
