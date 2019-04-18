@@ -28,8 +28,8 @@ class User(db.Model):
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
 
-   
-class Posts(db.Model):
+
+class Post(db.Model):
     """ Post table """
 
     __tablename__ = "posts"
@@ -52,4 +52,7 @@ class Posts(db.Model):
         db.ForeignKey('users.id')
     )
 
-    user = db.relationship('User')
+    user = db.relationship('User', backref='posts')
+
+    def __repr__(self):
+        return f"{self.id}, {self.title}, {self.content}, {self.created_at}, {self.user_id}"

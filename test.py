@@ -41,6 +41,16 @@ class IntegrationTest(unittest.TestCase):
         # self.assertEqual(result.status_code, 200)
         self.assertIn(b'Joe', result.data)
 
+    def test_post_page(self):  
+        """Testing status code of homepage """
+        client = app.test_client()
 
+        # test client makes a "request" to app
+        # note: app is NOT actually running
 
-             
+        # make an assertion about the response
+        result = client.get('/posts/4/edit')
+
+        self.assertEqual(result.status_code, 200)
+
+   

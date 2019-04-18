@@ -8,13 +8,13 @@
 
 <p>{{post.content }}</p>
 
-<h5>By {{ user.get_full_name() }}</h5>
+<h5>By {{ post.user.get_full_name() }}</h5>
 
-<form action="/users/{{ user.id }}">
+<form action="/users/{{ post.user.id }}">
     <button type="submit" class="btn btn-warning">Cancel</button>
 </form>
 <form action="/posts/{{ post.id }}/edit">
-    <button type="submit" class="btn btn-Primary">Edit</button>
+    <button type="submit" class="btn btn-primary">Edit</button>
 </form>
 <form action="/posts/{{ post.id }}/delete" method="POST">
     <button type="submit" class="btn btn-danger">Delete</button>
