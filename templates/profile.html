@@ -19,4 +19,17 @@
     <button type="submit" class="btn btn-danger">Delete User</button>
 </form>
 </div>
+<br>
+<br>
+
+<h3>Posts</h3>
+<ul>
+    {% for post in posts %}
+    <li><a href="/posts/{{ post.id }}">{{ post.title }} </a></li>
+    {% endfor %}
+</ul>
+
+<form action="/users/{{ user.id }}/posts/new">
+    <button type="submit" class="btn btn-primary">Add Post</button>
+</form>
 {% endblock %}
