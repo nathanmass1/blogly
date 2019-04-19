@@ -10,20 +10,21 @@ def connect_db(app):
     db.app = app
     db.init_app(app)
 
+
 class User(db.Model):
     """User table."""
 
     __tablename__ = "users"
 
     id = db.Column(db.Integer,
-        primary_key=True,
-        autoincrement=True)
+                   primary_key=True,
+                   autoincrement=True)
     first_name = db.Column(db.String(50),
-        nullable=False)
+                           nullable=False)
     last_name = db.Column(db.String(50),
-        nullable=False)                 
-    image_url = db.Column(db.String(200), nullable=False, default="https://store.playstation.com/store/api/chihiro/00_09_000/container/US/en/99/UP1477-CUSA07022_00-AV00000000000007//image?_version=00_09_000&platform=chihiro&w=720&h=720&bg_color=000000&opacity=100")
-
+                          nullable=False)
+    image_url = db.Column(db.String(200), nullable=False,
+                          default="https://store.playstation.com/store/api/chihiro/00_09_000/container/US/en/99/UP1477-CUSA07022_00-AV00000000000007//image?_version=00_09_000&platform=chihiro&w=720&h=720&bg_color=000000&opacity=100")
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
@@ -35,17 +36,17 @@ class Post(db.Model):
     __tablename__ = "posts"
 
     id = db.Column(db.Integer,
-        primary_key=True,
-        autoincrement=True)
-    
+                   primary_key=True,
+                   autoincrement=True)
+
     title = db.Column(db.String(50),
-        nullable=False)
+                      nullable=False)
 
     content = db.Column(db.String(500),
-        nullable=False)
-    
+                        nullable=False)
+
     created_at = db.Column(db.Date,
-        nullable=False)
+                           nullable=False)
 
     user_id = db.Column(
         db.Integer,
@@ -56,3 +57,39 @@ class Post(db.Model):
 
     def __repr__(self):
         return f"{self.id}, {self.title}, {self.content}, {self.created_at}, {self.user_id}"
+
+    assignments = db.relationship('PostTag',
+                        cascade="all, delete",
+                              backref='posts')    
+
+
+class Tag(db.Model):
+    """ Tag table"""
+
+    __tablename__ = "tags"
+
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)
+
+    name = db.Column(db.String(50),
+                     nullable=False)
+
+
+    assignments = db.relationship('PostTag',
+                        cascade="all, delete",
+                              backref='tags')
+
+
+class PostTag(db.Model):
+    """ Post tag match table"""
+
+    __tablename__ = "posttags"
+
+    post_id = db.Column(db.Integer,
+                        db.ForeignKey('posts.id', ondelete='CASCADE'),
+                        primary_key=True)
+
+    tag_id = db.Column(db.Integer,
+                       db.ForeignKey('tags.id',  ondelete='CASCADE'),
+                       primary_key=True)

@@ -10,6 +10,14 @@
 
 <h5>By {{ post.user.get_full_name() }}</h5>
 
+<ul>
+    {% for tag in assigments %}
+    <li><a href="/tags/{{ tag.tags.id }}">{{ tag.tags.name }} </a></li>
+    {% endfor %}
+</ul>
+
+
+
 <form action="/users/{{ post.user.id }}">
     <button type="submit" class="btn btn-warning">Cancel</button>
 </form>

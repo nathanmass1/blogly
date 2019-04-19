@@ -16,6 +16,11 @@
         <label for="content">Content</label>
         <input type="text" class="form-control" id="content" placeholder="Enter content here" name="content" value="{{ post.content }}">
     </div>
+    {% for tag in tags %}
+    <div class="checkbox">
+        <label><input type="checkbox" name="tag_name" value="{{ tag.id }}"> {{ tag.name }}</label>
+    </div>
+    {% endfor %}
     <br>
     <button type="submit" class="btn btn-primary">Edit</button>
 </form>

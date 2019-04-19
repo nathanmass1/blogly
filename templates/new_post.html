@@ -7,6 +7,7 @@
 <h2>Add Post for {{ user.get_full_name() }}</h2>
 
 
+
 <form action="/users/{{ user.id }}/posts" method="POST">
     <div>
         <label for="title">Title</label>
@@ -18,6 +19,11 @@
         <input type="text" class="form-control" id="content" placeholder="Enter content here" name="content">
     </div>
     <br>
+    {% for tag in tags %}
+    <div class="checkbox">
+        <label><input type="checkbox" name="tag_name" value="{{ tag.id }}"> {{ tag.name }}</label>
+    </div>
+    {% endfor %}
     <button type="submit" class="btn btn-primary">Add</button>
 </form>
 <form action="/users/{{ user.id }}">
